@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+data/
+template_server.R
+template_ui.R
+create_dataframes.R
