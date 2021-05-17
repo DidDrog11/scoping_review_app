@@ -7,7 +7,18 @@
 #    http://shiny.rstudio.com/
 #
 
-renv::install(packages = c("shiny", "tidyverse", "here", "DT", "countrycode", "leaflet", "leaflet.extras", "shinydashboard", "shinycssloaders", "sf", "snakecase"))
+renv::install(packages = c("shiny",
+                           "tidyverse",
+                           "here",
+                           "DT",
+                           "countrycode",
+                           "leaflet",
+                           "leaflet.extras",
+                           "shinydashboard",
+                           "shinycssloaders",
+                           "sf",
+                           "snakecase",
+                           "scales"))
 
 
 library(shiny)
@@ -18,6 +29,7 @@ library(tidyverse)
 library(here)
 library(leaflet)
 library(snakecase)
+library(scales)
 
 studies <- read_rds(here("www", "studies_app.rds"))
 studies_all <- read_rds(here("www", "studies_all_app.rds"))
@@ -384,16 +396,16 @@ shinyApp(
         speciesPlot <- reactive({
 
             if(length(input$genusplot) == 0) {
-                species_summary %>%
+                rodent_summary %>%
                     mutate(genus = to_sentence_case(genus)) %>%
                     pull(classification) %>%
                     unique()
             } else if(input$genusplot == "All") {
-                species_summary %>%
+                rodent_summary %>%
                     mutate(genus = to_sentence_case(genus)) %>%
                     pull(classification) %>%
                     unique()} else {
-                        species_summary %>%
+                        rodent_summary %>%
                             mutate(genus = to_sentence_case(genus)) %>%
                             filter(genus %in% input$genusplot) %>%
                             pull(classification) %>%
@@ -404,7 +416,7 @@ shinyApp(
 
         observe({
 
-            speciesPlot <- species_summary %>%
+            speciesPlot <- rodent_summary %>%
                 filter(classification %in% speciesPlot())
 
             output$`species-plot` <- renderPlot({
@@ -439,19 +451,27 @@ shinyApp(
         observe({
 
             pathogens <- pathogensSelected()
-            print(pathogens)
 
             output$pathogenstested <- renderPlot({
 
-                pathogen %>%
+                plot_pathogen <- pathogen %>%
                     filter(pathogen_group %in% pathogens) %>%
-                    mutate(pathogen_tested = factor(to_sentence_case(pathogen_tested))) %>%
-                    ggplot() +
-                    geom_col(aes(x = fct_rev(fct_infreq(pathogen_tested)), y = number)) +
+                    mutate(pathogen_tested = factor(to_sentence_case(pathogen_tested)),
+                           test_positive = factor(case_when(assay = grepl("tested", assay) ~ "Assayed",
+                                                     assay = grepl("positive", assay) ~ "Number positive",
+                                                     TRUE ~ "Other"))) %>%
+                    group_by(pathogen_tested, test_positive) %>%
+                    summarise(number = sum(number))
+
+                ggplot(plot_pathogen) +
+                    geom_col(aes(x = fct_reorder(pathogen_tested, number), y = number, fill = test_positive),
+                             position = "dodge") +
+                    scale_y_continuous(trans = "log1p", name = "Number of rodents assayed/number positive on log scale") +
+                    scale_fill_manual(values = c("orange", "purple")) +
                     coord_flip() +
-                    theme_minimal() +
-                    labs(y = "Number of assays performed",
-                         x = "Microorganisms assayed")
+                    labs(fill = element_blank(),
+                         x = element_blank()) +
+                    theme_minimal()
 
             })
 
