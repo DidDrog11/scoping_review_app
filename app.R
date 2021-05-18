@@ -98,7 +98,7 @@ shinyApp(
                                                plotOutput("trappingeffort")))
                                ),
                                tabItem(tabName = "studytrapmap", #location of trapping activities
-                                       p("This table on the left contains all 124 included studies. The black points on the map are the trapping locations aross all the studies. Selecting a row will plot the trap locations from the selected studies. Selecting a trapping site will produce some further information about the site. Some studies did not report information either coordinates or village names to allow plotting on this map."),
+                                       p("This table on the left contains all 124 included studies. The black points on the map are the trapping locations aross all the studies. Selecting a row will plot the trap locations from the selected studies. Selecting a trapping site will produce some further information about the site. Some studies did not report information either coordinates or village names to allow plotting on this map. The points with a darker colour indicate multiple trapping events that are overlayed at a single site."),
                                        fluidRow(
                                            column(12, verbatimTextOutput("selectedstudies"))),
                                        fluidRow(
