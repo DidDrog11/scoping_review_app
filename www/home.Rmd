@@ -8,8 +8,9 @@ author: "David Simons"
 ### <span style="color: red;">**In progress**</span>
 <br>
 
-This app is to explore the data collated and managed as part of a scoping review of rodent trapping studies performed in West Africa. The [report](https://www.dsimons.org/posts/scoping-review/index.html) is currently available on my website and the [data](https://docs.google.com/spreadsheets/d/1rQYjHhk6uk1PoKZZVsgFlmuqWGicU2tTisk9ddfAwTM/edit?usp=sharing) is available on a Google spreadsheet. A [github](https://github.com/DidDrog11/scoping_review) repository contains the code to reproduce the analysis.
+This app has been produced to explore the data collated and managed as part of a scoping review of rodent trapping studies performed in West Africa. The [report](https://www.dsimons.org/posts/scoping-review/index.html) is currently available on my [website](www.dsimons.org) and the [data](https://docs.google.com/spreadsheets/d/1rQYjHhk6uk1PoKZZVsgFlmuqWGicU2tTisk9ddfAwTM/edit?usp=sharing) is available on a Google spreadsheet. A [Github](https://github.com/DidDrog11/scoping_review) repository contains the code to reproduce the analysis.
 
 From the navigation panel on the left you will be able to access the components of the app including interactive tables, maps and plots concerning the rodent species trapped across West Africa and the potential zoonotic pathogens identified through different assays.
 
+If you have further questions or would be interested in further analysis being added please don't hesitate to get in touch either through email found at my website or by creating an issue on the app associated [Github](https://github.com/DidDrog11/scoping_review_app) repository.
 <br><br>

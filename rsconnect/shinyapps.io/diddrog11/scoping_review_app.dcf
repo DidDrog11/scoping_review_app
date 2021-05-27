@@ -5,10 +5,10 @@ account: diddrog11
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4132270
-bundleId: 4637403
+bundleId: 4646566
 url: https://diddrog11.shinyapps.io/scoping_review_app/
-when: 1621944616.79312
-lastSyncTime: 1621944616.79312
+when: 1622120786.88048
+lastSyncTime: 1622120786.88048
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: .RData|create_dataframes.R
+ignoredFiles: .RData|assist_file.R|create_dataframes.R|data

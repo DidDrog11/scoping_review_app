@@ -36,6 +36,10 @@ level_0 <- read_rds("www/level_0.rds")
 level_2 <- read_rds("www/level_2.rds")
 level_2_sites <- read_rds("www/level_2_sites.rds")
 
+wa_countries <- c("BEN", "BFA", "CIV", "CPV", "ESH", "GHA",
+                  "GIN", "GMB", "GNB", "LBR", "MLI", "MRT",
+                  "NER", "NGA", "SEN", "SLE", "TGO")
+
 # Colour palettes
 fact_aim <- colorFactor(palette = c("orange", "purple"), spatial$Aim, na.color = NA, alpha = F)
 fact_ap <- colorFactor(palette = c("green", "orange"), species$`Presence/Absence`, na.color = NA, alpha = F)
@@ -79,14 +83,14 @@ shinyApp(
                                        includeMarkdown("www/home.Rmd")),
                                tabItem(tabName = "studies", #included studies table
                                        fluidRow(
-                                           p("")
+                                           p("124 studies have contributed data to this research. All data is available for download from the Google sheets link on the homepage. Individual studies can be accessed from the hyperlink in the link column below.")
                                        ),
                                        fluidRow(
                                            DTOutput("studies") %>%
                                                withSpinner(color = "green"))),
                                tabItem(tabName = "study-plots", #included studies table
                                        fluidRow(
-                                           p("There has been an increase in rodent trapping studies over the last 5 decades with trapping occuring in countries such as Senegal and Guinea more frequently than others.")
+                                           p("This page shows some descriptive information about the included studies. There has been an increase in rodent trapping studies over the last 5 decades with trapping occuring in countries such as Senegal and Guinea more frequently than others.")
                                        ),
                                        fluidRow(
                                            splitLayout(
@@ -94,7 +98,7 @@ shinyApp(
                                                plotOutput("publicationyear"),
                                                plotOutput("publicationcountry"))),
                                        fluidRow(
-                                           p("Speciation has typically been through morphological measurements, however, more recently molecular tools are increasingly being used to identify trapped rodents to species level. The reporting of trapping effort is particularly helpful when comparing studies to give a measure of likely comprehensiveness of trapping activity at site, here we have categorised incomplete recording as those studies which have not presented trapping effort at the same level at which captures were reported")
+                                           p("Identification of trapped rodents to species level has typically been through morphological measurements, however, more recently there is increased uptake of molecular tools. The reporting of trapping effort is particularly helpful when comparing studies to give a measure of likely comprehensiveness of trapping activity at site, here we have categorised incomplete recording as those studies which have not presented trapping effort at the same level at which captures were reported")
                                        ),
                                        fluidRow(
                                            splitLayout(
@@ -103,7 +107,7 @@ shinyApp(
                                                plotOutput("trappingeffort")))
                                ),
                                tabItem(tabName = "studytrapmap", #location of trapping activities
-                                       p("This table on the left contains all 124 included studies. The black points on the map are the trapping locations aross all the studies. Selecting a row will plot the trap locations from the selected studies. Selecting a trapping site will produce some further information about the site. Some studies did not report information either coordinates or village names to allow plotting on this map. The points with a darker colour indicate multiple trapping events that are overlayed at a single site."),
+                                       p("This table on the left contains all 124 included studies. The black points on the map are the trapping locations aross all the studies. Selecting a row will plot the trap locations from the selected studies. Selecting a trapping site will produce some further information about the site. Some studies did not report information either coordinates or village names to allow plotting on this map. Studies with repeat visits at the same coordinates are overlayed on this map producing darker points."),
                                        fluidRow(
                                            column(12, verbatimTextOutput("selectedstudies"))),
                                        fluidRow(
@@ -183,8 +187,8 @@ shinyApp(
                                        )
                                ),
                                tabItem(tabName = "pathogenpresence",
-                                       p("This map can be used to visualise the locations of microrganisms detected in the included studies."),
-                                       p("All microorganisms that have been reported in the included studies are available for visualisation. To focus on a specific group (i.e. Viruses, Bacteria) this can be selected to filter the radial options. The points on this map are clustered as multiple species were tested at each geographic point. The colours initially displayed relate to the number of records at a geographic point rather than absence or presence of a microorganism. At the most detailed level the points radiate from the point coordinate with colour relating to thr Absence or Presence of the microorganism."),
+                                       p("This map can be used to visualise the locations of microrganisms detected in the included studies. The microorganisms are classified at the level presented in the studies this leads to separate maps for microorganisms at different taxa (i.e. Arenaviridiae, Mammarenvirus species and Lassa mammarenavirus have separate maps)."),
+                                       p("All microorganisms that have been reported in the included studies are available for visualisation. A specific group (i.e. Viruses, Bacteria) can be selected to filter the options. The points on this map are clustered as multiple species were tested at each geographic point. The colours initially displayed relate to the number of records at a geographic point rather than absence or presence of a microorganism. At the most detailed level the points radiate from the point coordinate with colour relating to the Absence or Presence of the microorganism."),
                                        fluidRow(
                                            column(2, selectizeInput(
                                                "microorganism", "Microorganism domain: ",
@@ -399,6 +403,8 @@ shinyApp(
             tm_shape(level_0 %>%
                          filter(GID_0 %in% wa_countries)) +
                 tm_polygons(alpha = 0, lwd = 1,
+                            id = "NAME_0",
+                            popup.vars = c("Country:" "NAME_0"),
                             group = "Country borders") +
                 tm_shape(level_2_sites) +
                 tm_polygons(col = "site_density", style = "fixed", breaks = c(0, 0.001, 0.005, 0.01, 0.05, 1, 6),
@@ -664,7 +670,7 @@ shinyApp(
                                                 "Village/Region: ", selPathogen$town_village,
                                                 "<br>",
                                                 "Year/month of rodent sampling: ", paste(selPathogen$year_trapping, " - ", selPathogen$month)),
-                                 clusterOptions = markerClusterOptions(),
+                                 clusterOptions = markerClusterOptions(spiderfyDistanceMultiplier = 2),
                                  group = "Selected species") %>%
                 clearControls() %>%
                 addLegend("topright",
