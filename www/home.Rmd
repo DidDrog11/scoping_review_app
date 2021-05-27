@@ -1,4 +1,11 @@
+---
+title: "Rodent trapping studies from West africa"
+author: "David Simons"
+---
 ## Welcome
+<br>
+
+### <span style="color: red;">**In progress**</span>
 <br>
 
 This app is to explore the data collated and managed as part of a scoping review of rodent trapping studies performed in West Africa. The [report](https://www.dsimons.org/posts/scoping-review/index.html) is currently available on my website and the [data](https://docs.google.com/spreadsheets/d/1rQYjHhk6uk1PoKZZVsgFlmuqWGicU2tTisk9ddfAwTM/edit?usp=sharing) is available on a Google spreadsheet. A [github](https://github.com/DidDrog11/scoping_review) repository contains the code to reproduce the analysis.
