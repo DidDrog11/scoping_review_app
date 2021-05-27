@@ -404,7 +404,7 @@ shinyApp(
                          filter(GID_0 %in% wa_countries)) +
                 tm_polygons(alpha = 0, lwd = 1,
                             id = "NAME_0",
-                            popup.vars = c("Country:" "NAME_0"),
+                            popup.vars = c("Country:" = "NAME_0"),
                             group = "Country borders") +
                 tm_shape(level_2_sites) +
                 tm_polygons(col = "site_density", style = "fixed", breaks = c(0, 0.001, 0.005, 0.01, 0.05, 1, 6),
