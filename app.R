@@ -69,7 +69,7 @@ shinyApp(
                                             menuItem("General study descriptives", tabName = "study-plots", icon = icon("stats", lib = "glyphicon")),
                                             menuItem("Study trapping locations", tabName = "studytrapmap", icon = icon("map marked alt")),
                                             menuItem("Trap site density", tabName = "densitytrap", icon = icon("globe-africa", lib = "font-awesome")),
-                                            menuItem("Species presence and absence", tabName = "speciespresence", icon = icon("map marked alt")),
+                                            menuItem("Species detection and non-detection", tabName = "speciespresence", icon = icon("map marked alt")),
                                             menuItem("Habitats of trapped species", tabName = "species-plots", icon = icon("stats", lib = "glyphicon")),
                                             menuItem("Microorganisms assayed", tabName = "pathogen", icon = icon("virus", lib = "font-awesome")),
                                             menuItem("Microorganisms detected", tabName = "pathogenpresence", icon = icon("map marked alt")),
@@ -82,15 +82,19 @@ shinyApp(
                                tabItem(tabName = "home", #home section
                                        includeMarkdown("www/home.Rmd")),
                                tabItem(tabName = "studies", #included studies table
+                                       tags$head(
+                                         tags$link(rel="stylesheet",
+                                                   href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css")),
                                        fluidRow(
-                                           p("124 studies have contributed data to this research. All data is available for download from the Google sheets link on the homepage. Individual studies can be accessed from the hyperlink in the link column below.")
+                                           p("Data have been extracted from 127 studies. All data is available for download from the Google sheets link on the homepage. Articles for each of the studies can be accessed from the hyperlink in the Link column. The Unique ID is used throughout this app to associated studies with their data.")
                                        ),
                                        fluidRow(
                                            DTOutput("studies") %>%
                                                withSpinner(color = "green"))),
                                tabItem(tabName = "study-plots", #included studies table
+                                      h3("Description of Included Studies"),
                                        fluidRow(
-                                           p("This page shows some descriptive information about the included studies. There has been an increase in rodent trapping studies over the last 5 decades with trapping occuring in countries such as Senegal and Guinea more frequently than others.")
+                                           p("There has been an increase in the number of rodent trapping studies conducted over the last 5 decades with trapping occurring in countries such as Senegal and Guinea more frequently than others.")
                                        ),
                                        fluidRow(
                                            splitLayout(
@@ -107,7 +111,8 @@ shinyApp(
                                                plotOutput("trappingeffort")))
                                ),
                                tabItem(tabName = "studytrapmap", #location of trapping activities
-                                       p("This table on the left contains all 124 included studies. The black points on the map are the trapping locations aross all the studies. Selecting a row will plot the trap locations from the selected studies. Selecting a trapping site will produce some further information about the site. Some studies did not report information either coordinates or village names to allow plotting on this map. Studies with repeat visits at the same coordinates are overlayed on this map producing darker points."),
+                                       h3("Locations of Studies"),
+                                       p("This table on the left contains all 127 included studies. The black points on the map are the trapping locations aross all the studies. Selecting a row will plot the trap locations from the selected studies. Selecting a trapping site will produce some further information about the site. Some studies did not report information either coordinates or village names to allow plotting on this map. Studies with repeat visits at the same coordinates are overlayed on this map producing darker points."),
                                        fluidRow(
                                            column(12, verbatimTextOutput("selectedstudies"))),
                                        fluidRow(
@@ -116,13 +121,16 @@ shinyApp(
                                        ) %>%
                                            withSpinner(color = "green")), #add comma when uncommenting below
                                tabItem(tabName = "densitytrap", #location of trapping activities
-                                       p("This map shows the density of trapping by administrative level 2 in West African countries"),
+                                       h3("Trap Night Density"),
+                                       p("This map shows the density of trapping by administrative level 2 in West African countries. Selecting a region will show the studies contributing to trap nights in this region and the density of trap nights."),
                                        fluidRow(
                                            tmapOutput("trapdensity", height = 850) %>%
                                                withSpinner(color = "green"))),
                                tabItem(tabName = "speciespresence",
-                                       p("This map can be used to visualise the presence and absence of small mammal species derived from all of the included studies. Where absence hasn't be explicitly recorded this is more appropriately descibed as pseudo-absence, this is because absence of a species is imputed from a study where it has been reported elsewhere within the studied area. The appropriateness of this designation is closely linked to the trapping effort made at a site."),
-                                       p("All species that have been reported in the included studies are available for visualisation. To focus on a specific or multiple Genus' you can type the name into the box below which will filter the radial options."),
+                                       h3("Detection and Non-Detection of Rodent Species"),
+                                       p("This map can be used to visualise the detection and non-detection of small mammal species derived from all of the included studies. Where absence hasn't be explicitly recorded this is more appropriately descibed as non-detection, this is because absence of a species is imputed from a study where it has been reported as detected elsewhere within the studied area. The appropriateness of this designation is closely linked to the trapping effort made at a site."),
+                                       p("All species that have been reported in the included studies are available for visualisation. To focus on a specific or multiple Genera you can type the name into the box below which will filter the radial options."),
+                                       p("Selecting a point will bring up further details including the number of trapped individuals of that species at that location and the trapping effort in number of trap nights."),
                                        fluidRow(
                                            column(2, selectizeInput(
                                                "genus", "Mammal genus: ",
@@ -153,7 +161,9 @@ shinyApp(
                                            column(10,
                                                   leafletOutput("speciesmap", height= 700)))),
                                tabItem(tabName = "species-plots",
-                                       p("Different species of rodents are more commonly found in human modified landscapes than others. This plot shows the relative number of individuals trapped in these different categories. Due to how the studies have reported the trapping locations there remains significant uncertainty around the coding of habitats. I discuss this in further detail in the linked manuscript."),
+                                       h3("Detections of Species in Different Land Use Types"),
+                                       p("Some species of rodents are more commonly found in human modified landscapes than others. This plot shows the number of individuals trapped in these different categories. Due to how the studies have reported the trapping locations there remains significant uncertainty around the coding of habitats."),
+                                       p("Multiple mammal genera can be selected in the 'Mammal genus:' filter."),
                                        fluidRow(
                                            column(2, selectizeInput(
                                                "genusplot", "Mammal genus: ",
@@ -171,6 +181,7 @@ shinyApp(
                                        plotOutput("species-plot", height = 700) %>%
                                            withSpinner(color = "green")),
                                tabItem(tabName = "pathogen", #showing plots of trapped individuals
+                                       h3("Test Positivity for Microorganisms Among Rodent Species"),
                                        fluidRow(
                                            p("The plot below shows the microorganisms tested for in the included studies. Some microorganisms were assayed at much greater frequency than others. The below plot is displayed on a log scale because of this."),
                                            p("The number of individual rodents tested for each potential pathogen are shown on the orange bar with the number positive shown with the purple bar.")),
@@ -187,8 +198,9 @@ shinyApp(
                                        )
                                ),
                                tabItem(tabName = "pathogenpresence",
-                                       p("This map can be used to visualise the locations of microrganisms detected in the included studies. The microorganisms are classified at the level presented in the studies this leads to separate maps for microorganisms at different taxa (i.e. Arenaviridiae, Mammarenvirus species and Lassa mammarenavirus have separate maps)."),
-                                       p("All microorganisms that have been reported in the included studies are available for visualisation. A specific group (i.e. Viruses, Bacteria) can be selected to filter the options. The points on this map are clustered as multiple species were tested at each geographic point. The colours initially displayed relate to the number of records at a geographic point rather than absence or presence of a microorganism. At the most detailed level the points radiate from the point coordinate with colour relating to the Absence or Presence of the microorganism."),
+                                       h3("Microorganisms Detected Among Trapped Rodents"),
+                                       p("This map can be used to visualise the locations of microrganisms detected in the included studies. The microorganisms are classified at the level presented in the studies this leads to separate maps for microorganisms at different taxa levels (i.e. Arenaviridiae, Mammarenvirus species and Lassa mammarenavirus have separate maps)."),
+                                       p("All microorganisms that have been reported in the included studies are available for visualisation. A specific group (i.e. Viruses, Bacteria) can be selected to filter the options. The points on this map are clustered as multiple trapped species were tested at each geographic point, some individuals trapped at a location where not tested, these are included for completeness to understand biases in testing. The colours initially displayed relate to the number of records at a geographic point rather than detection or non-detection of a microorganism. At the most detailed level the points radiate from the point coordinate with colour relating to the detection or non-detection of the microorganism."),
                                        fluidRow(
                                            column(2, selectizeInput(
                                                "microorganism", "Microorganism domain: ",
@@ -213,7 +225,9 @@ shinyApp(
                                            column(10,
                                                   leafletOutput("microorganismmap", height= 700)))),
                                tabItem(tabName = "rodentinfect",
+                                       h3("Identification of Locations with Host-Pathogen Associations"),
                                        p("This page shows the rodents that have been tested for an individual microorganism. This can be shown either based on the rodent species or microorganism"),
+                                       p("Selecting a row with a host-pathogen pair will highlight the country in which the detection has occurred."),
                                        fluidRow(
                                            column(6,
                                                   selectizeInput(
@@ -277,8 +291,7 @@ shinyApp(
         studytraps <- reactive({ studies })
 
         output$studies <- renderDT(
-            studies %>%
-                select(-Country),
+            studies,
             escape = FALSE,
             options = list(pageLength = 10,
                            autoWidth = TRUE,
@@ -406,7 +419,8 @@ shinyApp(
                             id = "NAME_0",
                             popup.vars = c("Country:" = "NAME_0"),
                             group = "Country borders") +
-                tm_shape(level_2_sites) +
+                tm_shape(level_2_sites %>%
+                           filter(Studies != "NA")) +
                 tm_polygons(col = "site_density", style = "fixed", breaks = c(0, 0.001, 0.005, 0.01, 0.05, 1, 6),
                             palette = "-viridis", colorNA = NULL, border.alpha = 1, border.col = "grey", lwd = 0.1,
                             title = paste("Density of trap sites per 1000 km2"),
@@ -458,7 +472,8 @@ shinyApp(
         })
 
         output$speciesmap <- renderLeaflet({
-            leaflet() %>% addTiles() %>%
+            leaflet() %>%
+            addTiles() %>%
                 setView(lng = 0, lat = 10, zoom = 5) %>%
                 addCircleMarkers(data = spatial %>%
                                      distinct(geometry, .keep_all = T),
@@ -489,9 +504,9 @@ shinyApp(
                                  group = "Selected species") %>%
                 clearControls() %>%
                 addLegend("topright",
-                          title = "Presence or Absence",
+                          title = "Detection or Non-detection",
                           colors = c("green", "orange"),
-                          labels = c("Absence", "Presence"),
+                          labels = c("Non-detection", "Detection"),
                           opacity = 0.8)
         })
 
@@ -674,9 +689,9 @@ shinyApp(
                                  group = "Selected species") %>%
                 clearControls() %>%
                 addLegend("topright",
-                          title = "Presence or Absence",
+                          title = "Detection or Non-detection",
                           colors = c("#f1a340", "#998ec3"),
-                          labels = c("Absence", "Presence"),
+                          labels = c("Non-detection", "Detection"),
                           opacity = 0.8)
         })
 

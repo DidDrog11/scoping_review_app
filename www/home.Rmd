@@ -1,14 +1,15 @@
 ---
 title: "Rodent trapping studies from West africa"
 author: "David Simons"
+date: 2022-11-10
 ---
 ## Welcome
 <br>
 
-### <span style="color: red;">**In progress**</span>
+### <span style="color: red;">**v.1.0**</span>
 <br>
 
-This app has been produced to explore the data collated and managed as part of a scoping review of rodent trapping studies performed in West Africa. The [report](https://www.dsimons.org/posts/scoping-review/index.html) is currently available on my [website](www.dsimons.org) and the [data](https://docs.google.com/spreadsheets/d/1rQYjHhk6uk1PoKZZVsgFlmuqWGicU2tTisk9ddfAwTM/edit?usp=sharing) is available on a Google spreadsheet. A [Github](https://github.com/DidDrog11/scoping_review) repository contains the code to reproduce the analysis.
+This Shiny app has been produced to explore the data collated and managed as part of a review of rodent trapping studies performed in West Africa. The [pre-print](https://doi.org/10.1101/2022.08.30.505792) is available on BioRxiv and there are further discussions on my [website](www.dsimons.org). Unprocessed  [data](https://docs.google.com/spreadsheets/d/1rQYjHhk6uk1PoKZZVsgFlmuqWGicU2tTisk9ddfAwTM/edit?usp=sharing) are available as a Google spreadsheet. A [Github](https://github.com/DidDrog11/scoping_review) repository contains the code to reproduce the analysis.
 
 From the navigation panel on the left you will be able to access the components of the app including interactive tables, maps and plots concerning the rodent species trapped across West Africa and the potential zoonotic pathogens identified through different assays.
 
