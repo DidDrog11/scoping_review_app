@@ -6,10 +6,10 @@ date: 2022-11-10
 ## Welcome
 <br>
 
-### <span style="color: red;">**v.1.0**</span>
+### <span style="color: black;">**v.1.0**</span>
 <br>
 
-This Shiny app has been produced to explore the data collated and managed as part of a review of rodent trapping studies performed in West Africa. The [pre-print](https://doi.org/10.1101/2022.08.30.505792) is available on BioRxiv and there are further discussions on my [website](www.dsimons.org). Unprocessed  [data](https://docs.google.com/spreadsheets/d/1rQYjHhk6uk1PoKZZVsgFlmuqWGicU2tTisk9ddfAwTM/edit?usp=sharing) are available as a Google spreadsheet. A [Github](https://github.com/DidDrog11/scoping_review) repository contains the code to reproduce the analysis.
+This Shiny app has been produced to explore the data collated and managed as part of a review of rodent trapping studies performed in West Africa. The [publication](https://doi.org/10.1371/journal.pntd.0010772) is available at PLOS NTD and there are further discussions on my [website](www.dsimons.org). Formatted data on rodent sampling for pathogens has been incorporated into the Global Biodiversity Information Facility, with the entire dataset available [here](https://doi.org/10.15468/zr6frj). A data-release [paper](https://doi.org/10.46471/gigabyte.100) describing the processing is available at Gigabyte. Unprocessed  [data](https://docs.google.com/spreadsheets/d/1rQYjHhk6uk1PoKZZVsgFlmuqWGicU2tTisk9ddfAwTM/edit?usp=sharing) are available as a Google spreadsheet. A [Github](https://github.com/DidDrog11/scoping_review) repository contains the code to reproduce the analysis.
 
 From the navigation panel on the left you will be able to access the components of the app including interactive tables, maps and plots concerning the rodent species trapped across West Africa and the potential zoonotic pathogens identified through different assays.
 
