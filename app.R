@@ -11,9 +11,11 @@ library(shiny)
 library(shinydashboard)
 library(shinycssloaders)
 library(DT)
+library(htmltools)
 library(tidyverse)
 library(leaflet)
 library(leaflet.extras)
+library(markdown)
 library(sf)
 library(snakecase)
 library(scales)
@@ -67,12 +69,12 @@ shinyApp(
                                             menuItem("Home", tabName = "home", icon = icon("home")),
                                             menuItem("Included studies", tabName = "studies", icon = icon("table")),
                                             menuItem("General study descriptives", tabName = "study-plots", icon = icon("stats", lib = "glyphicon")),
-                                            menuItem("Study trapping locations", tabName = "studytrapmap", icon = icon("map marked alt")),
+                                            menuItem("Study trapping locations", tabName = "studytrapmap", icon = icon("map-location-dot", lib = "font-awesome")),
                                             menuItem("Trap site density", tabName = "densitytrap", icon = icon("globe-africa", lib = "font-awesome")),
-                                            menuItem("Species detection and non-detection", tabName = "speciespresence", icon = icon("map marked alt")),
+                                            menuItem("Species detection and non-detection", tabName = "speciespresence", icon = icon("map-location-dot", lib = "font-awesome")),
                                             menuItem("Habitats of trapped species", tabName = "species-plots", icon = icon("stats", lib = "glyphicon")),
                                             menuItem("Microorganisms assayed", tabName = "pathogen", icon = icon("virus", lib = "font-awesome")),
-                                            menuItem("Microorganisms detected", tabName = "pathogenpresence", icon = icon("map marked alt")),
+                                            menuItem("Microorganisms detected", tabName = "pathogenpresence", icon = icon("map-location-dot", lib = "font-awesome")),
                                             menuItem("Rodent species and their microorganisms", tabName = "rodentinfect", icon = icon("paw", lib = "font-awesome"))
                                         ) #end sidebarMenu
                        ), #end dashboardSidebar

@@ -11,10 +11,10 @@ test <- pathogen %>%
 
 if(input$selectedspecies == "All" & input$selectedpathogen == "All") {
   pathogen
-} if(input$selectedspecies == "All") {
+} else if(input$selectedspecies == "All") {
   pathogen %>%
     filter(pathogen_clean %in% input$selectedpathogen)
-} if(input$selectedpathogen == "All") {
+} else if(input$selectedpathogen == "All") {
   pathogen %>%
     filter(classification %in% input$selectedspecies)
 } else {
